@@ -2,17 +2,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Manajemen Stok Gudang | In/Out </title>
+    <title>Sistem Manajemen Stok Gudang | In/Out + Total Otomatis</title>
     <style>
         * {
-            margin: 0;
-            padding: 0;
             box-sizing: border-box;
-            font-family: system-ui, 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
         }
 
         body {
-            background: #e9f0f5;
+            background: #e9eff7;
+            margin: 0;
             padding: 24px 20px;
         }
 
@@ -20,544 +19,696 @@
             max-width: 1400px;
             margin: 0 auto;
             background: white;
-            border-radius: 28px;
+            border-radius: 32px;
             box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.15);
             overflow: hidden;
-            padding: 20px 24px 32px 24px;
+            padding: 20px 28px 32px 28px;
         }
 
         h1 {
-            font-size: 1.9rem;
+            font-size: 1.8rem;
+            margin-top: 0;
+            margin-bottom: 0.25rem;
             font-weight: 600;
-            background: linear-gradient(135deg, #1e3c72, #2b4c7c);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            margin-bottom: 6px;
-            display: inline-block;
-        }
-
-        .header-sub {
+            color: #1a2c3e;
             display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-            flex-wrap: wrap;
-            margin-bottom: 24px;
-            border-bottom: 2px solid #e2e8f0;
-            padding-bottom: 16px;
-        }
-
-        .title-area p {
-            color: #4a5568;
-            margin-top: 4px;
-        }
-
-        /* kontrol & filter */
-        .filter-bar {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
             align-items: center;
-            justify-content: space-between;
-            background: #f8fafc;
-            padding: 16px 18px;
-            border-radius: 28px;
-            margin-bottom: 28px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-        }
-
-        .search-group {
-            display: flex;
-            flex-wrap: wrap;
             gap: 12px;
-            align-items: center;
-            flex: 2;
+            flex-wrap: wrap;
+            justify-content: space-between;
         }
 
-        .search-group label {
-            font-weight: 600;
-            color: #0f3b5f;
-        }
-
-        #searchInput {
-            padding: 10px 16px;
+        h1 small {
+            font-size: 0.85rem;
+            font-weight: normal;
+            background: #f0f4fa;
+            padding: 6px 14px;
             border-radius: 40px;
-            border: 1px solid #cbd5e1;
-            width: 260px;
+            color: #2c5b7c;
+        }
+
+        hr {
+            margin: 20px 0;
+            border: none;
+            height: 2px;
+            background: linear-gradient(90deg, #cbdbe0, transparent);
+        }
+
+        /* form panel */
+        .form-card {
+            background: #f8fafd;
+            border-radius: 28px;
+            padding: 20px 24px;
+            margin-bottom: 30px;
+            border: 1px solid #dfe6ef;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+        }
+
+        .form-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px;
+            align-items: flex-end;
+        }
+
+        .input-group {
+            flex: 1 1 160px;
+            min-width: 130px;
+        }
+
+        .input-group label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #4a627a;
+            margin-bottom: 6px;
+        }
+
+        .input-group input, .input-group select {
+            width: 100%;
+            padding: 10px 12px;
+            border-radius: 18px;
+            border: 1px solid #cbdbe0;
+            background: white;
             font-size: 0.9rem;
             transition: 0.2s;
-            background: white;
         }
 
-        #searchInput:focus {
+        .input-group input:focus, .input-group select:focus {
             outline: none;
             border-color: #2c7da0;
             box-shadow: 0 0 0 3px rgba(44,125,160,0.2);
         }
 
-        .action-buttons {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-
         button {
-            background: white;
+            background: #2c7da0;
             border: none;
-            padding: 8px 20px;
+            padding: 10px 20px;
             border-radius: 40px;
             font-weight: 600;
-            font-size: 0.85rem;
+            color: white;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: 0.2s;
+            font-size: 0.85rem;
             display: inline-flex;
             align-items: center;
             gap: 8px;
             box-shadow: 0 1px 2px rgba(0,0,0,0.05);
-            border: 1px solid #cbd5e1;
         }
 
-        button i {
-            font-style: normal;
-            font-weight: bold;
-            font-size: 1rem;
-        }
-
-        .btn-primary {
-            background: #1e466e;
-            border-color: #1e466e;
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background: #0f3557;
-            transform: translateY(-1px);
+        button:hover {
+            background: #1f5e7a;
+            transform: scale(0.97);
         }
 
         .btn-outline {
             background: white;
-            border-color: #2c7da0;
+            border: 1px solid #2c7da0;
             color: #2c7da0;
         }
 
         .btn-outline:hover {
-            background: #eef6fc;
+            background: #eef4fc;
+            transform: none;
         }
 
-        /* tabel container responsive */
+        .btn-danger {
+            background: #bc6c25;
+        }
+
+        .btn-danger:hover {
+            background: #9e561d;
+        }
+
+        .action-bar {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 24px;
+            margin-top: 12px;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            align-items: center;
+            background: #f1f5f9;
+            padding: 8px 16px;
+            border-radius: 60px;
+        }
+
+        .search-box input, .search-box select {
+            border: none;
+            background: transparent;
+            padding: 8px 5px;
+            font-size: 0.9rem;
+            min-width: 160px;
+        }
+
+        .search-box input:focus, .search-box select:focus {
+            outline: none;
+        }
+
         .table-wrapper {
             overflow-x: auto;
-            border-radius: 20px;
-            border: 1px solid #e2edf2;
+            border-radius: 24px;
+            border: 1px solid #e2e8f0;
             background: white;
-            margin-bottom: 28px;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 0.9rem;
-            min-width: 880px;
+            font-size: 0.85rem;
         }
 
         th {
-            background: #eef3fa;
-            padding: 15px 12px;
+            background: #eef2f8;
+            padding: 14px 10px;
             text-align: center;
             font-weight: 700;
-            color: #1e2f41;
-            border-bottom: 2px solid #d4e0e9;
+            color: #1f3b4c;
+            border-bottom: 1px solid #d4dfea;
         }
 
         td {
-            padding: 12px 10px;
+            padding: 12px 8px;
             text-align: center;
-            border-bottom: 1px solid #e9edf2;
-            background-color: white;
-        }
-
-        tr:hover td {
-            background-color: #fafeff;
-        }
-
-        .badge-in {
-            background: #dcfce7;
-            color: #15803d;
-            font-weight: 600;
-            padding: 4px 8px;
-            border-radius: 30px;
-            display: inline-block;
-        }
-
-        .badge-out {
-            background: #ffe4e2;
-            color: #b91c1c;
-            font-weight: 600;
-            padding: 4px 8px;
-            border-radius: 30px;
+            border-bottom: 1px solid #ecf1f6;
+            vertical-align: middle;
         }
 
         .total-row {
-            background: #f1f6fd;
-            font-weight: 800;
-            border-top: 2px solid #becddb;
+            background: #eef3fc;
+            font-weight: 700;
+            border-top: 2px solid #cbdde9;
         }
 
         .total-row td {
-            background: #f1f6fd;
             font-weight: 700;
+            background: #eef3fc;
         }
 
-        .footer-summary {
+        .badge {
+            background: #e4edf5;
+            padding: 4px 10px;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        .footer-buttons {
             display: flex;
+            flex-wrap: wrap;
             justify-content: flex-end;
-            gap: 32px;
-            padding: 12px 20px;
-            background: #fef9e6;
-            border-radius: 24px;
-            margin-top: 10px;
-            font-weight: 700;
-            font-size: 1rem;
+            gap: 15px;
+            margin-top: 28px;
         }
 
-        .empty-message {
-            text-align: center;
-            padding: 40px;
-            color: #6c757d;
-            font-style: italic;
-        }
-
-        @media (max-width: 680px) {
+        @media (max-width: 700px) {
             .container {
                 padding: 16px;
             }
-            .filter-bar {
+            .form-grid {
                 flex-direction: column;
                 align-items: stretch;
             }
-            .search-group {
+            .input-group {
                 width: 100%;
             }
-            #searchInput {
-                width: 100%;
+            .action-bar {
+                flex-direction: column;
+                align-items: stretch;
             }
         }
+
+        .delete-btn {
+            background: none;
+            border: none;
+            color: #bc6c25;
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 4px 8px;
+            box-shadow: none;
+        }
+        .delete-btn:hover {
+            background: #fff0e5;
+            transform: none;
+            color: #a05115;
+        }
+        button:active { transform: scale(0.96);}
     </style>
 </head>
 <body>
 <div class="container">
-    <div class="header-sub">
-        <div class="title-area">
-            <h1>📦 SISTEM STOK GUDANG</h1>
-            <p>Kelola barang masuk (In) / keluar (Out) · Otomatis hitung total & stok</p>
+    <h1>
+        📦 Manajemen Stok Gudang
+        <small>In + Out</small>
+    </h1>
+    <hr>
+
+    <!-- FORM INPUT DATA -->
+    <div class="form-card">
+        <div class="form-grid">
+            <div class="input-group">
+                <label>🗓️ Tanggal</label>
+                <input type="date" id="tanggalInput" required>
+            </div>
+            <div class="input-group">
+                <label>🏷️ Nama Barang</label>
+                <input type="text" id="namaBarangInput" placeholder="Contoh: Plastik, lakban, dll" autocomplete="off">
+            </div>
+            <div class="input-group">
+                <label>📂 Kategori</label>
+                <select id="kategoriInput">
+                    <option value="BOPP">BOPP</option>
+                    <option value="Magnet">Magnet</option>
+                    <option value="Plat Magnet">Plat Magnet</option>
+                    <option value="Lakban besar">Lakban Besar</option>
+                    <option value="Lakban Kecil">Lakban Kecil</option>
+                    <option value="Masking Tape kecil">Masking Tape Kecil</option>
+                    <option value="Masking Tape Besar">Masking Tape Besar</option>
+                    <option value="Plastik Sampah">Plastik Sampah</option>
+                    <option value="Plastik Wrapping">Plastik Wrapping</option>
+                    <option value="Karet">Karet</option>
+                    <option value="Double Tape ">Double Tape</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label>📥 IN (Jumlah Masuk)</label>
+                <input type="number" id="inInput" value="0" min="0" step="1">
+            </div>
+            <div class="input-group">
+                <label>📤 OUT (Jumlah Keluar)</label>
+                <input type="number" id="outInput" value="0" min="0" step="1">
+            </div>
+            <div class="input-group">
+                <button id="tambahBtn">Tambah barang</button>
+            </div>
+        </div>
+        <div style="font-size: 0.7rem; margin-top: 12px; color: #4a6e8a;">* Setiap baris adalah transaksi harian. Kolom Total In / Total Out akan diakumulasi per baris secara otomatis.</div>
+    </div>
+
+    <!-- FITUR PENCARIAN & DOWNLOAD/PRINT -->
+    <div class="action-bar">
+        <div class="search-box">
+            <span>🔍</span>
+            <input type="text" id="searchInput" placeholder="Cari Nama Barang / Kategori..." style="min-width: 180px;">
+            <select id="filterKategoriSearch">
+                <option value="">Semua Kategori</option>
+                <option value="BOPP">BOPP</option>
+                <option value="Magnet">Magnet</option>
+                <option value="Plat Magnet">Plat Magnet</option>
+                <option value="Lakban besar">Lakban Besar</option>
+                <option value="Lakban Kecil">Lakban Kecil</option>
+                <option value="Masking Tape kecil">Masking Tape Kecil</option>
+                <option value="Masking Tape Besar">Masking Tape Besar</option>
+                <option value="Plastik Sampah">Plastik Sampah</option>
+                <option value="Plastik Wrapping">Plastik Wrapping</option>
+                <option value="Karet">Karet</option>
+                <option value="Double Tape ">Double Tape</option>
+            </select>
+            <button id="resetFilterBtn" class="btn-outline" style="margin-left: 6px;">Reset</button>
+        </div>
+        <div style="display: flex; gap: 12px;">
+            <button id="printTableBtn">🖨️ Print</button>
+            <button id="downloadExcelBtn">⬇️ Download (CSV)</button>
         </div>
     </div>
 
-    <div class="filter-bar">
-        <div class="search-group">
-            <label>🔍 Cari :</label>
-            <input type="text" id="searchInput" placeholder="Nama barang atau kategori ...">
-            <button id="resetSearchBtn" class="btn-outline" style="background:#f1f5f9;">↺ Reset</button>
-        </div>
-        <div class="action-buttons">
-            <button id="printBtn" class="btn-outline">🖨️ Cetak / Print</button>
-            <button id="downloadExcelBtn" class="btn-primary">📎 Download (CSV/Excel)</button>
-        </div>
-    </div>
-
-    <div class="table-wrapper">
+    <!-- TABEL STOK -->
+    <div class="table-wrapper" id="tableWrapper">
         <table id="stockTable">
             <thead>
                 <tr>
-                    <th>Tanggal</th>
-                    <th>Nama Barang</th>
-                    <th>Kategori</th>
-                    <th>In (Masuk)</th>
-                    <th>Out (Keluar)</th>
-                    <th>Total In</th>
-                    <th>Total Out</th>
+                    <th>No</th><th>Tanggal</th><th>Nama Barang</th><th>Kategori</th>
+                    <th>IN (Masuk)</th><th>OUT (Keluar)</th>
+                    <th>📊 TOTAL IN</th><th>📉 TOTAL OUT</th>
+                    <th>Aksi</th>
                 </tr>
-                </thead>
-                <tbody id="tableBody">
-                    <!-- Data akan diisi oleh javascript -->
-                </tbody>
-                <tfoot id="tableFooter">
-                    <!-- summary row khusus total in & out kumulatif -->
-                </tfoot>
+                <tr id="headerTotalRow" style="background:#f9fbfd;">
+                    <th colspan="7" style="text-align:right">✨ Keseluruhan Stok (Total In - Total Out) :</th>
+                    <th colspan="2" id="grandTotalStockCell" style="background:#e2eef9; font-size:1rem;">0</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+                <!-- Data akan diisi javascript -->
+                <tr><td colspan="9" style="text-align:center; padding: 40px;">Belum ada data, silakan tambah transaksi</td></tr>
+            </tbody>
+            <tfoot id="tableFootTotal">
+                <!-- dynamic footer total keseluruhan in/out -->
+            </tfoot>
         </table>
     </div>
-    <div class="footer-summary" id="extraSummary">
-        <!-- dynamic grand total bisa ditampilkan juga disini -->
+    <div class="footer-buttons">
+        <button id="clearAllBtn" class="btn-danger">🗑️ Hapus Semua Data</button>
     </div>
 </div>
 
 <script>
-    // ----- DATA AWAL STOK GUDANG (contoh) -----
-    let stockData = [
-        { tanggal: "2025-03-01", namaBarang: "BOPP", kategori: "Plastik", inQty: 10, outQty: 2 },
-        { tanggal: "2025-03-03", namaBarang: "MAGNET", kategori: "Material", inQty: 50, outQty: 12 },
-        { tanggal: "2025-03-05", namaBarang: "Plat Magnet", kategori: "Material", inQty: 30, outQty: 5 },
-        { tanggal: "2025-03-07", namaBarang: "Plastik Wrapping", kategori: "Plastik", inQty: 8, outQty: 3 },
-        { tanggal: "2025-03-10", namaBarang: "Plastik sampah", kategori: "Plastik", inQty: 5, outQty: 0 },
-        { tanggal: "2025-03-12", namaBarang: "Lakban besar", kategori: "Plastik", inQty: 4, outQty: 1 },
-        { tanggal: "2025-03-15", namaBarang: "Lakban kecil", kategori: "Plastik", inQty: 20, outQty: 8 },
-        { tanggal: "2025-03-18", namaBarang: "Karet", kategori: "Karet", inQty: 12, outQty: 4 },
-        { tanggal: "2025-03-20", namaBarang: "Masking Tape kecil", kategori: "Glue", inQty: 15, outQty: 6 },
-        { tanggal: "2025-03-22", namaBarang: "Masking tape besar", kategori: "Glue", inQty: 25, outQty: 10 }
-    ];
+    // ======================= DATA STORAGE =======================
+    let stockData = [];     // setiap item: { id, tanggal, namaBarang, kategori, inVal, outVal, totalIn, totalOut }
+    let nextId = 1;
 
-    // Fungsi untuk menghitung ulang Total In (akumulasi per barang dari awal hingga baris ke-i)
-    // dan Total Out (akumulasi per barang) berdasarkan urutan data (diurutkan berdasarkan tanggal untuk logika akumulasi yang konsisten)
-    // Agar akumulasi logis, kita urutkan data berdasarkan tanggal ascending dulu sebelum render,
-    // tetapi tetap mempertahankan array asli? kita buat fungsi render yang mengurutkan per tanggal.
-    function computeRunningTotals(dataArray) {
-        // dataArray harus sudah dalam urutan kronologis (tanggal asc)
-        const mapRunningIn = new Map();   // key: namaBarang -> total in sejauh ini
-        const mapRunningOut = new Map();  // key: namaBarang -> total out sejauh ini
-        
-        const result = dataArray.map(item => {
-            const nama = item.namaBarang;
-            let prevIn = mapRunningIn.get(nama) || 0;
-            let prevOut = mapRunningOut.get(nama) || 0;
-            
-            const newTotalIn = prevIn + item.inQty;
-            const newTotalOut = prevOut + item.outQty;
-            
-            mapRunningIn.set(nama, newTotalIn);
-            mapRunningOut.set(nama, newTotalOut);
-            
-            return {
-                ...item,
-                runningIn: newTotalIn,
-                runningOut: newTotalOut
-            };
-        });
-        return result;
+    // Helper ambil tanggal hari ini untuk default
+    function getTodayDate() {
+        const today = new Date();
+        const yyyy = today.getFullYear();
+        const mm = String(today.getMonth() + 1).padStart(2, '0');
+        const dd = String(today.getDate()).padStart(2, '0');
+        return `${yyyy}-${mm}-${dd}`;
     }
 
-    // Variabel untuk menyimpan data yang sudah di proses (dengan running total)
-    let processedData = [];
+    // set default tanggal hari ini
+    document.getElementById('tanggalInput').value = getTodayDate();
 
-    // Fungsi untuk refresh data berdasarkan filter (pencarian nama/kategori) & urutkan tanggal
-    function refreshDisplay() {
-        // 1. Filter dulu berdasarkan search input
-        const searchTerm = document.getElementById('searchInput').value.trim().toLowerCase();
-        let filtered = [...stockData];
-        if (searchTerm !== "") {
-            filtered = filtered.filter(item => 
-                item.namaBarang.toLowerCase().includes(searchTerm) || 
-                item.kategori.toLowerCase().includes(searchTerm)
-            );
+    // Fungsi untuk menghitung ulang totalIn dan totalOut berdasarkan histori (akumulasi per barang)
+    // Konsep: Untuk setiap transaksi, total_in = akumulasi IN untuk barang tsb hingga transaksi tsb (urut berdasarkan id atau tanggal)
+    // Biar lebih intuitif: Total In per baris = jumlah IN dari semua transaksi barang yang SAMA (nama barang) SEBELUMNYA + IN saat ini.
+    // Total Out per baris = akumulasi OUT untuk barang tsb hingga baris itu.
+    // Urutan berdasarkan tanggal (jika tanggal sama maka berdasarkan id). Ini memberikan laporan riwayat yang logis.
+    function recalcAccumulatedTotals() {
+        // group berdasarkan nama barang (case sensitive)
+        const barangMap = new Map(); // key: namaBarang -> array of indices
+        for (let i = 0; i < stockData.length; i++) {
+            const item = stockData[i];
+            const key = item.namaBarang;
+            if (!barangMap.has(key)) barangMap.set(key, []);
+            barangMap.get(key).push({ index: i, tanggal: item.tanggal, id: item.id });
         }
-        // 2. Urutkan berdasarkan tanggal (ascending) agar akumulasi total in/out berurutan secara historis
-        filtered.sort((a,b) => new Date(a.tanggal) - new Date(b.tanggal));
-        
-        // 3. Hitung running total in & out per barang
-        const computed = computeRunningTotals(filtered);
-        processedData = computed;
-        
-        // 4. Render tabel body
-        renderTableBody(processedData);
-        
-        // 5. Render footer total keseluruhan (grand total in & out dari data yang tampil)
-        renderFooterTotals(processedData);
+        // untuk tiap barang, urutkan berdasarkan tanggal kemudian id (agar akumulasi sesuai kronologi)
+        for (let [_, arr] of barangMap.entries()) {
+            arr.sort((a,b) => {
+                if (a.tanggal === b.tanggal) return a.id - b.id;
+                return a.tanggal.localeCompare(b.tanggal);
+            });
+            let runningIn = 0;
+            let runningOut = 0;
+            for (let entry of arr) {
+                const idx = entry.index;
+                const item = stockData[idx];
+                runningIn += item.inVal;
+                runningOut += item.outVal;
+                item.totalIn = runningIn;
+                item.totalOut = runningOut;
+            }
+        }
     }
-    
-    // Render baris tbody
-    function renderTableBody(data) {
+
+    // fungsi render tabel + filter + total akhir
+    function renderTable() {
+        const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
+        const kategoriFilter = document.getElementById('filterKategoriSearch').value;
+        
+        let filteredData = stockData.filter(item => {
+            const matchNama = item.namaBarang.toLowerCase().includes(searchTerm);
+            const matchKategori = kategoriFilter === "" || item.kategori === kategoriFilter;
+            return matchNama && matchKategori;
+        });
+
         const tbody = document.getElementById('tableBody');
-        if (!data.length) {
-            tbody.innerHTML = `<tr><td colspan="7" class="empty-message">📭 Tidak ada data stok yang sesuai</td></tr>`;
+        if (filteredData.length === 0) {
+            tbody.innerHTML = `<tr><td colspan="9" style="text-align:center; padding: 40px;">📭 Tidak ada data sesuai pencarian / kosong</td></tr>`;
+            // update total keseluruhan di footer dan grand total tetap 0
+            updateTotalFooter([]);
+            document.getElementById('grandTotalStockCell').innerText = "0";
             return;
         }
+
+        let htmlRows = '';
+        filteredData.forEach((item, idx) => {
+            // no urut berdasarkan tampilan
+            const number = idx+1;
+            htmlRows += `
+                <tr>
+                    <td>${number}</td>
+                    <td>${item.tanggal}</td>
+                    <td style="font-weight:500;">${escapeHtml(item.namaBarang)}</td>
+                    <td><span class="badge">${escapeHtml(item.kategori)}</span></td>
+                    <td>${item.inVal}</td>
+                    <td>${item.outVal}</td>
+                    <td style="background:#f4fafd; font-weight:500;">${item.totalIn}</td>
+                    <td style="background:#fef4ea; font-weight:500;">${item.totalOut}</td>
+                    <td><button class="delete-btn" data-id="${item.id}">🗑️ Hapus</button></td>
+                </tr>
+            `;
+        });
+        tbody.innerHTML = htmlRows;
+
+        // hitung total keseluruhan dari FILTER (biar user lihat stok akhir dari data yg tampil)
+        let overallInFilter = 0;
+        let overallOutFilter = 0;
+        filteredData.forEach(item => {
+            overallInFilter += item.inVal;
+            overallOutFilter += item.outVal;
+        });
+        const netStockFilter = overallInFilter - overallOutFilter;
         
-        let html = '';
-        for (let row of data) {
-            // format tanggal biar lebih rapi
-            const formattedDate = row.tanggal;
-            html += `<tr>
-                        <td>${formattedDate}</td>
-                        <td><strong>${escapeHtml(row.namaBarang)}</strong></td>
-                        <td>${escapeHtml(row.kategori)}</td>
-                        <td><span class="badge-in">+${row.inQty}</span></td>
-                        <td><span class="badge-out">-${row.outQty}</span></td>
-                        <td>${row.runningIn}</td>
-                        <td>${row.runningOut}</td>
-                     </tr>`;
-        }
-        tbody.innerHTML = html;
+        // Tampilkan total stok akhir filter di grandTotalStockCell (header special row)
+        document.getElementById('grandTotalStockCell').innerHTML = `<strong>${netStockFilter}</strong> (Net Stok)`;
+        
+        // Update footer total in/out keseluruhan filter
+        updateTotalFooter(filteredData);
+        
+        // Event listener untuk tombol hapus
+        document.querySelectorAll('.delete-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const id = parseInt(btn.getAttribute('data-id'));
+                deleteTransactionById(id);
+            });
+        });
     }
     
-    // Menampilkan ringkasan total IN dan total OUT secara keseluruhan dari data yang ditampilkan (setelah filter)
-    function renderFooterTotals(data) {
-        const foot = document.getElementById('tableFooter');
+    function updateTotalFooter(filteredArray) {
         let totalInAll = 0;
         let totalOutAll = 0;
-        for (let row of data) {
-            totalInAll += row.inQty;
-            totalOutAll += row.outQty;
-        }
-        // Tampilkan di footer tabel (baris terakhir ringkasan)
-        if (data.length > 0) {
-            foot.innerHTML = `<tr class="total-row">
-                                <td colspan="3" style="text-align:right; font-weight:800;">📊 TOTAL KESELURUHAN (Filter Aktif) :</td>
-                                <td style="background:#eef2ff; font-weight:800;">+ ${totalInAll}</td>
-                                <td style="background:#ffefef; font-weight:800;">- ${totalOutAll}</td>
-                                <td colspan="2" style="background:#eef2ff; font-weight:800;">Stok Net : ${totalInAll - totalOutAll}</td>
-                              </tr>`;
-        } else {
-            foot.innerHTML = '';
-        }
-        
-        // juga update extra summary (opsional)
-        const extraDiv = document.getElementById('extraSummary');
-        if (data.length > 0) {
-            extraDiv.innerHTML = `📌 Stok Masuk Total: <span style="color:#0e6b0e;">${totalInAll}</span> &nbsp;|&nbsp; Stok Keluar Total: <span style="color:#b91c1c;">${totalOutAll}</span> &nbsp;|&nbsp; 💎 Stok Bersih: <strong>${totalInAll - totalOutAll}</strong>`;
-        } else {
-            extraDiv.innerHTML = `📭 Tidak ada data untuk ditampilkan`;
-        }
-    }
-    
-    // helper sederhana untuk menghindari XSS
-    function escapeHtml(str) {
-        if (!str) return '';
-        return str.replace(/[&<>]/g, function(m) {
-            if (m === '&') return '&amp;';
-            if (m === '<') return '&lt;';
-            if (m === '>') return '&gt;';
-            return m;
+        filteredArray.forEach(item => {
+            totalInAll += item.inVal;
+            totalOutAll += item.outVal;
         });
+        const netAll = totalInAll - totalOutAll;
+        const foot = document.getElementById('tableFootTotal');
+        if (!foot) return;
+        foot.innerHTML = `
+            <tr style="background:#f2f6fc; font-weight:600;">
+                <td colspan="4" style="text-align:right;">📌 TOTAL (Filter) :</td>
+                <td><strong>${totalInAll}</strong></td>
+                <td><strong>${totalOutAll}</strong></td>
+                <td colspan="2"><strong>Total In - Out = ${netAll}</strong></td>
+                <td></td>
+            </tr>
+        `;
     }
     
-    // Fungsi download ke CSV / Excel (termasuk data yang tampil difilter dan total in/out running)
-    function downloadCSV() {
-        if (processedData.length === 0) {
-            alert("Tidak ada data untuk di-download. Coba ubah filter atau tambah data.");
+    function deleteTransactionById(id) {
+        stockData = stockData.filter(item => item.id !== id);
+        if(stockData.length === 0) nextId = 1;
+        else {
+            // optional: reset nextId minimal lebih besar dari max id yg ada
+            const maxId = stockData.reduce((max, item) => Math.max(max, item.id), 0);
+            if(nextId <= maxId) nextId = maxId + 1;
+        }
+        recalcAccumulatedTotals();
+        renderTable();
+        saveToLocal();
+    }
+    
+    // fungsi menambah transaksi baru
+    function addTransaction() {
+        const tanggal = document.getElementById('tanggalInput').value;
+        const namaBarang = document.getElementById('namaBarangInput').value.trim();
+        const kategori = document.getElementById('kategoriInput').value;
+        let inVal = parseInt(document.getElementById('inInput').value, 10);
+        let outVal = parseInt(document.getElementById('outInput').value, 10);
+        
+        if (isNaN(inVal)) inVal = 0;
+        if (isNaN(outVal)) outVal = 0;
+        if (!tanggal) {
+            alert("Tanggal wajib diisi!");
             return;
         }
-        // menyiapkan header CSV
-        const headers = ["Tanggal", "Nama Barang", "Kategori", "In (Masuk)", "Out (Keluar)", "Total In (Akumulasi)", "Total Out (Akumulasi)"];
-        const rows = processedData.map(item => [
+        if (namaBarang === "") {
+            alert("Nama barang tidak boleh kosong!");
+            return;
+        }
+        if (inVal === 0 && outVal === 0) {
+            alert("Minimal salah satu IN atau OUT harus diisi > 0");
+            return;
+        }
+        
+        const newId = nextId++;
+        const newItem = {
+            id: newId,
+            tanggal: tanggal,
+            namaBarang: namaBarang,
+            kategori: kategori,
+            inVal: inVal,
+            outVal: outVal,
+            totalIn: 0,
+            totalOut: 0
+        };
+        stockData.push(newItem);
+        // urutkan secara global berdasarkan tanggal kemudian id untuk akumulasi yang stabil
+        stockData.sort((a,b) => {
+            if(a.tanggal === b.tanggal) return a.id - b.id;
+            return a.tanggal.localeCompare(b.tanggal);
+        });
+        recalcAccumulatedTotals();
+        renderTable();
+        saveToLocal();
+        
+        // reset input in/out tapi biarkan nama barang dan tanggal opsional? lebih praktis in out jadi 0
+        document.getElementById('inInput').value = 0;
+        document.getElementById('outInput').value = 0;
+        document.getElementById('namaBarangInput').value = '';
+        document.getElementById('namaBarangInput').focus();
+        // tanggal tetap hari ini? biarkan yang terpilih
+        // optional set kategori default tetap
+    }
+    
+    function clearAllData() {
+        if(confirm("⚠️ Hapus SEMUA data transaksi? Tindakan ini permanen.")) {
+            stockData = [];
+            nextId = 1;
+            recalcAccumulatedTotals();
+            renderTable();
+            saveToLocal();
+        }
+    }
+    
+    // print area (hanya tabel stok yang terlihat + judul)
+    function printTable() {
+        const originalTitle = document.title;
+        document.title = "Laporan Stok Gudang";
+        const printWindow = window.open('', '_blank');
+        const tableContent = document.getElementById('stockTable').cloneNode(true);
+        // hapus perhaps tombol aksi di kolom hapus? tapi tetap boleh print, tidak masalah
+        const style = document.createElement('style');
+        style.textContent = `
+            body { font-family: sans-serif; margin: 20px; }
+            table { border-collapse: collapse; width: 100%; }
+            th, td { border: 1px solid #aaa; padding: 8px; text-align: center; }
+            th { background: #f0f0f0; }
+            .badge { background: #eef; padding: 2px 6px; }
+            .delete-btn { display: none; }
+            .total-row { background: #f9f9f9;}
+        `;
+        printWindow.document.write(`
+            <html><head><title>Cetak Stok Gudang</title></head><body>
+            <h2>📋 Laporan Stok Barang</h2>
+            <p>Tanggal cetak: ${new Date().toLocaleString()}</p>
+            ${tableContent.outerHTML}
+            </body></html>
+        `);
+        printWindow.document.head.appendChild(style);
+        printWindow.document.close();
+        printWindow.print();
+        document.title = originalTitle;
+    }
+    
+    // download CSV (termasuk data yang sedang difilter, supaya sesuai ekspor)
+    function downloadCSV() {
+        const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
+        const kategoriFilter = document.getElementById('filterKategoriSearch').value;
+        let filtered = stockData.filter(item => {
+            const matchNama = item.namaBarang.toLowerCase().includes(searchTerm);
+            const matchKategori = kategoriFilter === "" || item.kategori === kategoriFilter;
+            return matchNama && matchKategori;
+        });
+        // mapping data untuk ekspor total in, total out berdasarkan akumulasi terbaru (sudah dihitung)
+        const headers = ["No","Tanggal","Nama Barang","Kategori","IN","OUT","TOTAL IN","TOTAL OUT"];
+        const rows = filtered.map((item, idx) => [
+            idx+1,
             item.tanggal,
             item.namaBarang,
             item.kategori,
-            item.inQty,
-            item.outQty,
-            item.runningIn,
-            item.runningOut
+            item.inVal,
+            item.outVal,
+            item.totalIn,
+            item.totalOut
         ]);
-        
-        // baris total tambahan di akhir file (opsional)
-        let totalInAll = 0, totalOutAll = 0;
-        for (let item of processedData) {
-            totalInAll += item.inQty;
-            totalOutAll += item.outQty;
-        }
-        const summaryRow = ["", "TOTAL KESELURUHAN", "", totalInAll, totalOutAll, `Total In: ${totalInAll}`, `Total Out: ${totalOutAll}`];
-        
-        const csvContent = [headers, ...rows, summaryRow]
-            .map(row => row.map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(","))
-            .join("\n");
-        
+        const csvContent = [headers, ...rows].map(row => row.map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(",")).join("\n");
         const blob = new Blob(["\uFEFF" + csvContent], { type: "text/csv;charset=utf-8;" });
         const link = document.createElement("a");
         const url = URL.createObjectURL(blob);
-        link.setAttribute("href", url);
-        link.setAttribute("download", "stock_gudang_export.csv");
+        link.href = url;
+        link.setAttribute("download", "stok_gudang_export.csv");
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
         URL.revokeObjectURL(url);
     }
     
-    // Fungsi print: mencetak tabel dengan gaya rapi (menyembunyikan tombol, filter, dll)
-    function printTable() {
-        const originalTitle = document.title;
-        document.title = "Laporan Stok Gudang";
-        // clone bagian container yang penting: judul + tabel + ringkasan
-        const printContent = document.querySelector('.container').cloneNode(true);
-        // Hapus tombol action & filter bar agar tidak ikut tercetak (tapi tetap elegan)
-        const filterBarClone = printContent.querySelector('.filter-bar');
-        if (filterBarClone) filterBarClone.remove();
-        // hapus aksi tombol yang berlebihan di dalam tabel? tidak perlu tetapi kita bisa menyembunyikan tombol tambahan jika ada di printContent
-        // Di container, cari tombol2 yang mungkin ada di header-sub? kita tetap izinkan judul.
-        // tapi hapus juga tombol download cetak pada clone di bagian manapun? lebih baik hapus semua tombol dari action-buttons.
-        const actionDivs = printContent.querySelectorAll('.action-buttons');
-        actionDivs.forEach(div => div.remove());
-        const btnReset = printContent.querySelector('#resetSearchBtn');
-        if(btnReset) btnReset.remove();
-        // Pastikan input search tidak tampil
-        const searchGroupClone = printContent.querySelector('.search-group');
-        if(searchGroupClone) searchGroupClone.remove();
-        
-        // Ganti extraSummary mungkin tidak perlu tapi biarkan ringkasan footer
-        
-        const printWindow = window.open('', '_blank');
-        printWindow.document.write(`
-            <html>
-            <head>
-                <title>Cetak Stok Gudang</title>
-                <style>
-                    body { font-family: 'Segoe UI', Arial, sans-serif; margin: 20px; padding: 20px; }
-                    table { width: 100%; border-collapse: collapse; margin: 20px 0; }
-                    th, td { border: 1px solid #aaa; padding: 8px 10px; text-align: center; }
-                    th { background: #eef2fa; }
-                    .total-row { background: #f5f0e0; font-weight: bold; }
-                    .badge-in, .badge-out { font-weight: bold; }
-                    .footer-summary { margin-top: 20px; background: #f9f2e0; padding: 10px; }
-                    h1 { color: #1e3c72; }
-                </style>
-            </head>
-            <body>
-                ${printContent.outerHTML}
-                <p style="text-align:center; margin-top:30px; font-size:12px;">Dicetak dari Sistem Stok Gudang - ${new Date().toLocaleString()}</p>
-            </body>
-            </html>
-        `);
-        printWindow.document.close();
-        printWindow.print();
-        document.title = originalTitle;
+    // local storage
+    function saveToLocal() {
+        localStorage.setItem("stockGudangData", JSON.stringify(stockData));
+        localStorage.setItem("stockNextId", nextId);
     }
     
-    // Bisa tambah sample data atau reset data (tapi tidak ada fitur edit, namun user bisa di-extra)
-    // Sediakan reset filter dan inisialisasi data awal, atau tambah data dinamis? sesuai permintaan tidak ada form tambah, 
-    // namun user bisa mengubah array stockData secara langsung? lebih baik menyediakan contoh dan fungsional.
-    // Untuk memudahkan uji fitur, Saya bisa menyisipkan tombol tambah (opsional tidak diminta, tapi disediakan simpel?) 
-    // Tidak mengganggu requirement: Print, download, pencarian, otomatis menjumlahkan In/Out di akhir.
-
-    // Inisialisasi listener dan event
-    document.addEventListener('DOMContentLoaded', () => {
-        refreshDisplay();
-        
-        const searchInput = document.getElementById('searchInput');
-        searchInput.addEventListener('input', () => refreshDisplay());
-        
-        const resetBtn = document.getElementById('resetSearchBtn');
-        resetBtn.addEventListener('click', () => {
-            document.getElementById('searchInput').value = '';
-            refreshDisplay();
+    function loadFromLocal() {
+        const saved = localStorage.getItem("stockGudangData");
+        if(saved) {
+            stockData = JSON.parse(saved);
+            // rekonstruksi tipe data number
+            stockData.forEach(item => {
+                item.inVal = Number(item.inVal);
+                item.outVal = Number(item.outVal);
+                item.totalIn = Number(item.totalIn) || 0;
+                item.totalOut = Number(item.totalOut) || 0;
+            });
+            const savedId = localStorage.getItem("stockNextId");
+            if(savedId) nextId = parseInt(savedId, 10);
+            else {
+                const maxId = stockData.reduce((max,item)=> Math.max(max, item.id),0);
+                nextId = maxId+1;
+            }
+            recalcAccumulatedTotals();
+        } else {
+            // sample data awal biar tidak kosong (optional demo)
+            stockData = [];
+            nextId = 1;
+            const demo = [
+                { id: nextId++, tanggal: getTodayDate(), namaBarang: "Cat Tembok", kategori: "Material Bangunan", inVal: 20, outVal: 5, totalIn:0, totalOut:0 },
+                { id: nextId++, tanggal: getTodayDate(), namaBarang: "Pensil 2B", kategori: "Alat Tulis", inVal: 100, outVal: 30, totalIn:0, totalOut:0 },
+                { id: nextId++, tanggal: getTodayDate(), namaBarang: "Mouse Wireless", kategori: "Elektronik", inVal: 15, outVal: 3, totalIn:0, totalOut:0 }
+            ];
+            stockData.push(...demo);
+            recalcAccumulatedTotals();
+            saveToLocal();
+        }
+        renderTable();
+    }
+    
+    function escapeHtml(str) {
+        if(!str) return '';
+        return str.replace(/[&<>]/g, function(m) {
+            if(m === '&') return '&amp;';
+            if(m === '<') return '&lt;';
+            if(m === '>') return '&gt;';
+            return m;
         });
-        
-        const downloadBtn = document.getElementById('downloadExcelBtn');
-        downloadBtn.addEventListener('click', downloadCSV);
-        
-        const printBtn = document.getElementById('printBtn');
-        printBtn.addEventListener('click', printTable);
+    }
+    
+    // filter & search event binding
+    document.getElementById('searchInput').addEventListener('input', () => renderTable());
+    document.getElementById('filterKategoriSearch').addEventListener('change', () => renderTable());
+    document.getElementById('resetFilterBtn').addEventListener('click', () => {
+        document.getElementById('searchInput').value = '';
+        document.getElementById('filterKategoriSearch').value = '';
+        renderTable();
     });
+    document.getElementById('tambahBtn').addEventListener('click', addTransaction);
+    document.getElementById('clearAllBtn').addEventListener('click', clearAllData);
+    document.getElementById('printTableBtn').addEventListener('click', printTable);
+    document.getElementById('downloadExcelBtn').addEventListener('click', downloadCSV);
     
-    // Untuk menambah data contoh agar lebih terlihat dinamis? (tidak diwajibkan, tapi agar user bisa melihat akumulasi out/in)
-    // Tambahkan sedikit interaktivitas untuk menambah transaksi stok? TIDAK diminta. Tapi karena kebutuhan menggunakan 'total in' dan 'total out' kumulatif per barang,
-    // serta data awal lengkap. Jika ingin menambah contoh, user bisa edit manual di console? Tetapi kami hadirkan sesuai spek.
-    // Namun karena pencarian berdasarkan kategori & nama, tabel akan menampilkan akumulasi dari urutan sejarah (berdasarkan tanggal) 
-    // untuk setiap barang: total in dan total out berjalan indikasi sisa stok per barang, sesuai dengan 'total in' dan 'total out'.
-    // Di setiap baris, "Total In" = kumulatif barang tersebut dari awal sampai baris itu, "Total Out" juga.
-    
-    // Untuk memenuhi agar out/in dijumlah secara otomatis di akhir (grand total), sudah kami tampilkan baik di footer tabel maupun summary bawah.
-    // Capability: Print, download, filter kategori/nama OK.
-    // NOTE: Agar tabel terlihat rapi, sudah disertakan running total yang benar dan stabil.
-    
-    // Jika ingin data lebih dinamis, tetapi tetap mengikuti permintaan tidak perlu edit, tapi fitur pencarian nama kategori telah maksimal.
-    console.log("Sistem stok gudang siap, dengan akumulasi In/Out, filter, print, download excel/csv");
+    // inisialisasi
+    loadFromLocal();
 </script>
 </body>
 </html>
