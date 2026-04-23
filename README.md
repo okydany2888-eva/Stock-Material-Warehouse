@@ -360,6 +360,7 @@
             <div class="input-group">
                 <label>📂 Kategori</label>
                 <select id="kategoriInput">
+                    <option value="--Semua Kategori--">--Semua Kategori--</option>
                     <option value="BOPP">BOPP</option>
                     <option value="Magnet">Magnet</option>
                     <option value="Plat Magnet">Plat Magnet</option>
