@@ -355,11 +355,10 @@
             </div>
             <div class="input-group">
                 <label>🏷️ Nama Barang</label>
-                <input type="text" id="namaBarangInput" placeholder="Contoh: Semen" autocomplete="off">
+                <input type="text" id="namaBarangInput">
             </div>
             <div class="input-group">
                 <label>📂 Kategori</label>
-                <input type="text" id="Kategori">
                 <select id="kategoriInput">
                     <option value="BOPP">BOPP</option>
                     <option value="Magnet">Magnet</option>
