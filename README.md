@@ -16,7 +16,6 @@
             font-family: 'Segoe UI', Roboto, system-ui, -apple-system, 'Helvetica Neue', sans-serif;
         }
 
-        /* container utama dengan padding responsif */
         .app-container {
             max-width: 1200px;
             margin: 0 auto;
@@ -47,7 +46,6 @@
             color: #2c6e8f;
         }
 
-        /* form mobile friendly */
         .form-card {
             background: #f8fafc;
             border-radius: 24px;
@@ -130,7 +128,6 @@
             background: #bc6c25;
         }
 
-        /* action bar (search & filter) */
         .action-bar {
             display: flex;
             flex-wrap: wrap;
@@ -151,8 +148,7 @@
             min-width: 180px;
         }
 
-        .search-box input, 
-        .search-box select {
+        .search-box input {
             background: transparent;
             border: none;
             padding: 10px 5px;
@@ -161,8 +157,7 @@
             min-width: 100px;
         }
 
-        .search-box input:focus, 
-        .search-box select:focus {
+        .search-box input:focus {
             outline: none;
         }
 
@@ -177,7 +172,6 @@
             padding: 8px 18px;
         }
 
-        /* table responsive */
         .table-wrapper {
             overflow-x: auto;
             border-radius: 20px;
@@ -190,7 +184,7 @@
             width: 100%;
             border-collapse: collapse;
             font-size: 0.75rem;
-            min-width: 620px;
+            min-width: 550px;
         }
 
         th {
@@ -208,15 +202,6 @@
             border-bottom: 1px solid #f0f4f9;
         }
 
-        .badge {
-            background: #e2eaf1;
-            padding: 4px 8px;
-            border-radius: 40px;
-            font-size: 0.7rem;
-            font-weight: 600;
-            display: inline-block;
-        }
-
         .delete-btn {
             background: none;
             border: none;
@@ -232,15 +217,6 @@
             transform: none;
         }
 
-        .total-header-row th {
-            background: #e7f0f9;
-        }
-        .grand-total-cell {
-            background: #d9eaf3;
-            font-weight: 800;
-            font-size: 0.9rem;
-        }
-
         .footer-buttons {
             display: flex;
             justify-content: flex-end;
@@ -249,7 +225,6 @@
             flex-wrap: wrap;
         }
 
-        /* responsif untuk landscape & portrait */
         @media (min-width: 768px) {
             body {
                 padding: 20px;
@@ -282,7 +257,6 @@
             }
         }
 
-        /* khusus landscape hp (max-height 500px) bisa pakai padding minimal */
         @media (max-width: 900px) and (orientation: landscape) {
             body {
                 padding: 8px;
@@ -316,7 +290,7 @@
                 background: #f1f5f9;
                 padding: 12px;
             }
-            .search-box input, .search-box select {
+            .search-box input {
                 background: white;
                 border-radius: 30px;
                 padding: 10px 12px;
@@ -346,7 +320,6 @@
         <small>In/Out + Total</small>
     </h1>
 
-    <!-- Form Input Data - Mobile optimized -->
     <div class="form-card">
         <div class="form-grid">
             <div class="input-group">
@@ -355,25 +328,7 @@
             </div>
             <div class="input-group">
                 <label>🏷️ Nama Barang</label>
-                <input type="text" id="namaBarangInput">
-            </div>
-            <div class="input-group">
-                <label>📂 Kategori</label>
-                <select id="kategoriInput">
-                    <option value="--Semua Kategori--">--Semua Kategori--</option>
-                    <option value="BOPP">BOPP</option>
-                    <option value="Magnet">Magnet</option>
-                    <option value="Plat Magnet">Plat Magnet</option>
-                    <option value="Lakban besar">Lakban Besar</option>
-                    <option value="Lakban Kecil">Lakban Kecil</option>
-                    <option value="Masking Tape kecil">Masking Tape Kecil</option>
-                    <option value="Masking Tape Besar">Masking Tape Besar</option>
-                    <option value="Plastik Sampah">Plastik Sampah</option>
-                    <option value="Plastik Wrapping">Plastik Wrapping</option>
-                    <option value="Karet">Karet</option>
-                    <option value="Double Tape ">Double Tape</option>
-                    <option value="Lainnya">Lainnya</option>
-                </select>
+                <input type="text" id="namaBarangInput" placeholder="Contoh: Semen" autocomplete="off">
             </div>
             <div class="input-group">
                 <label>📥 IN (Masuk)</label>
@@ -390,51 +345,38 @@
         <div class="info-note">* Total In / Out per barang terakumulasi otomatis berdasarkan urutan tanggal</div>
     </div>
 
-    <!-- Pencarian & Aksi -->
     <div class="action-bar">
         <div class="search-box">
             <span>🔍</span>
             <input type="text" id="searchInput" placeholder="Cari nama barang...">
-            <select id="filterKategoriSearch">
-                <option value="">Semua Kategori</option>
-                <option value="BOPP">BOPP</option>
-                <option value="Magnet">Magnet</option>
-                <option value="Plat Magnet">Plat Magnet</option>
-                <option value="Lakban besar">Lakban Besar</option>
-                <option value="Lakban Kecil">Lakban Kecil</option>
-                <option value="Masking Tape kecil">Masking Tape Kecil</option>
-                <option value="Masking Tape Besar">Masking Tape Besar</option>
-                <option value="Plastik Sampah">Plastik Sampah</option>
-                <option value="Plastik Wrapping">Plastik Wrapping</option>
-                <option value="Karet">Karet</option>
-                <option value="Double Tape ">Double Tape</option>
-                <option value="Lainnya">Lainnya</option>
-            </select>
             <button id="resetFilterBtn" class="btn-outline" style="width:auto; padding:6px 14px;">Reset</button>
         </div>
         <div class="btn-group">
             <button id="printTableBtn">🖨️ Print</button>
-            <button id="downloadExcelBtn">📎 CSV</button>
+            <button id="downloadExcelBtn">⬇️ CSV</button>
         </div>
     </div>
 
-    <!-- Tabel Stok dengan scroll horizontal -->
     <div class="table-wrapper">
         <table id="stockTable">
             <thead>
                 <tr>
-                    <th>No</th><th>Tanggal</th><th>Nama Barang</th><th>Kategori</th>
-                    <th>IN</th><th>OUT</th>
-                    <th>Total IN</th><th>Total OUT</th>
+                    <th>No</th>
+                    <th>Tanggal</th>
+                    <th>Nama Barang</th>
+                    <th>IN</th>
+                    <th>OUT</th>
+                    <th>Total IN</th>
+                    <th>Total OUT</th>
                     <th>Aksi</th>
                 </tr>
                 <tr style="background:#eef2f8;">
-                    <th colspan="7" style="text-align:right">✨ Stok Akhir (Total IN - Total OUT) :</th>
+                    <th colspan="6" style="text-align:right">✨ Stok Akhir (Total IN - Total OUT) :</th>
                     <th colspan="2" id="grandTotalStockCell" style="background:#cbdde9;">0</th>
                 </tr>
             </thead>
             <tbody id="tableBody">
-                <tr><td colspan="9" style="text-align:center; padding:35px;">📭 Kosong, tambah transaksi</td></tr>
+                <tr><td colspan="8" style="text-align:center; padding:35px;">📭 Kosong, tambah transaksi</td><tr>
             </tbody>
             <tfoot id="tableFootTotal"></tfoot>
         </table>
@@ -446,20 +388,17 @@
 </div>
 
 <script>
-    // ======================= DATA UTAMA =======================
-    let stockData = [];       // { id, tanggal, namaBarang, kategori, inVal, outVal, totalIn, totalOut }
+    let stockData = [];
     let nextId = 1;
 
-    // Helper tanggal hari ini
     function getTodayDate() {
         const d = new Date();
         return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
     }
     document.getElementById('tanggalInput').value = getTodayDate();
 
-    // Fungsi rekalkulasi TOTAL IN & TOTAL OUT AKUMULASI per barang (kronologis)
     function recalcAccumulatedTotals() {
-        const barangMap = new Map(); // key: namaBarang -> array { index, tanggal, id }
+        const barangMap = new Map();
         for (let i = 0; i < stockData.length; i++) {
             const key = stockData[i].namaBarang;
             if (!barangMap.has(key)) barangMap.set(key, []);
@@ -483,20 +422,17 @@
         }
     }
 
-    // Render tabel dengan filter
     function renderTable() {
         const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
-        const kategoriFilter = document.getElementById('filterKategoriSearch').value;
 
         const filtered = stockData.filter(item => {
             const matchNama = item.namaBarang.toLowerCase().includes(searchTerm);
-            const matchKat = (kategoriFilter === "" || item.kategori === kategoriFilter);
-            return matchNama && matchKat;
+            return matchNama;
         });
 
         const tbody = document.getElementById('tableBody');
         if (filtered.length === 0) {
-            tbody.innerHTML = `<tr><td colspan="9" style="text-align:center; padding:32px;">🔍 Tidak ada data / kosong</td></tr>`;
+            tbody.innerHTML = `<tr><td colspan="8" style="text-align:center; padding:32px;">🔍 Tidak ada data / kosong</td></tr>`;
             updateTotalFooter([]);
             document.getElementById('grandTotalStockCell').innerHTML = "0";
             return;
@@ -509,7 +445,6 @@
                     <td>${idx+1}</td>
                     <td>${item.tanggal}</td>
                     <td style="font-weight:500;">${escapeHtml(item.namaBarang)}</td>
-                    <td><span class="badge">${escapeHtml(item.kategori)}</span></td>
                     <td>${item.inVal}</td>
                     <td>${item.outVal}</td>
                     <td style="background:#eef6fc; font-weight:500;">${item.totalIn}</td>
@@ -520,7 +455,6 @@
         });
         tbody.innerHTML = html;
 
-        // Hitung total keseluruhan dari filter
         let totalInFilter = 0, totalOutFilter = 0;
         filtered.forEach(item => {
             totalInFilter += item.inVal;
@@ -530,7 +464,6 @@
         document.getElementById('grandTotalStockCell').innerHTML = `<strong>${netStock}</strong>`;
         updateTotalFooter(filtered);
 
-        // Event hapus per tombol
         document.querySelectorAll('.delete-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 const id = parseInt(btn.getAttribute('data-id'));
@@ -547,7 +480,7 @@
         if (footer) {
             footer.innerHTML = `
                 <tr style="background:#f4f9ff; font-weight:600;">
-                    <td colspan="4" style="text-align:right;">📊 TOTAL (filter) :</td>
+                    <td colspan="3" style="text-align:right;">📊 TOTAL (filter) :</td>
                     <td><strong>${sumIn}</strong></td>
                     <td><strong>${sumOut}</strong></td>
                     <td colspan="2"><strong>Net: ${net}</strong></td>
@@ -569,11 +502,9 @@
         saveToLocal();
     }
 
-    // Tambah transaksi baru
     function addTransaction() {
         const tanggal = document.getElementById('tanggalInput').value;
         let namaBarang = document.getElementById('namaBarangInput').value.trim();
-        const kategori = document.getElementById('kategoriInput').value;
         let inVal = parseInt(document.getElementById('inInput').value, 10);
         let outVal = parseInt(document.getElementById('outInput').value, 10);
         if (isNaN(inVal)) inVal = 0;
@@ -585,11 +516,10 @@
 
         const newId = nextId++;
         const newItem = {
-            id: newId, tanggal, namaBarang, kategori,
+            id: newId, tanggal, namaBarang,
             inVal, outVal, totalIn: 0, totalOut: 0
         };
         stockData.push(newItem);
-        // urutkan global berdasarkan tanggal lalu id agar akumulasi rapi
         stockData.sort((a,b) => {
             if (a.tanggal === b.tanggal) return a.id - b.id;
             return a.tanggal.localeCompare(b.tanggal);
@@ -598,12 +528,10 @@
         renderTable();
         saveToLocal();
 
-        // reset form in/out, keep nama barang? biar cepat, nama dikosongkan opsional
         document.getElementById('inInput').value = 0;
         document.getElementById('outInput').value = 0;
         document.getElementById('namaBarangInput').value = '';
         document.getElementById('namaBarangInput').focus();
-        // jangan reset tanggal biar praktis
     }
 
     function clearAll() {
@@ -616,11 +544,9 @@
         }
     }
 
-    // Print responsif
     function printStock() {
         const win = window.open('', '_blank');
         const tableClone = document.getElementById('stockTable').cloneNode(true);
-        // sembunyikan kolom aksi di print jika mau (opsional)
         const style = document.createElement('style');
         style.textContent = `
             body { font-family: system-ui, sans-serif; margin: 20px; }
@@ -628,7 +554,6 @@
             th, td { border: 1px solid #aaa; padding: 8px; text-align: center; }
             th { background: #eef; }
             .delete-btn { display: none; }
-            .badge { background: #f0f0f0; padding: 2px 8px; border-radius: 20px; }
         `;
         win.document.write(`
             <html><head><title>Laporan Stock Gudang</title></head><body>
@@ -642,18 +567,15 @@
         win.print();
     }
 
-    // download CSV (data sesuai filter)
     function downloadCSV() {
         const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
-        const kategoriFilter = document.getElementById('filterKategoriSearch').value;
         let filtered = stockData.filter(item => {
             const matchNama = item.namaBarang.toLowerCase().includes(searchTerm);
-            const matchKat = (kategoriFilter === "" || item.kategori === kategoriFilter);
-            return matchNama && matchKat;
+            return matchNama;
         });
-        const headers = ["No","Tanggal","Nama Barang","Kategori","IN","OUT","TOTAL IN","TOTAL OUT"];
+        const headers = ["No","Tanggal","Nama Barang","IN","OUT","TOTAL IN","TOTAL OUT"];
         const rows = filtered.map((item, idx) => [
-            idx+1, item.tanggal, item.namaBarang, item.kategori,
+            idx+1, item.tanggal, item.namaBarang,
             item.inVal, item.outVal, item.totalIn, item.totalOut
         ]);
         let csv = headers.join(",") + "\n";
@@ -671,7 +593,6 @@
         URL.revokeObjectURL(url);
     }
 
-    // local storage
     function saveToLocal() {
         localStorage.setItem("stockGudangAppData", JSON.stringify(stockData));
         localStorage.setItem("stockNextId", nextId);
@@ -695,17 +616,8 @@
             }
             recalcAccumulatedTotals();
         } else {
-            // Data contoh agar tidak kosong saat pertama buka (demo)
             stockData = [];
             nextId = 1;
-            const demoData = [
-                { id: nextId++, tanggal: getTodayDate(), namaBarang: "Kipas Angin", kategori: "Elektronik", inVal: 12, outVal: 3, totalIn:0, totalOut:0 },
-                { id: nextId++, tanggal: getTodayDate(), namaBarang: "Pensil Joyko", kategori: "Alat Tulis", inVal: 50, outVal: 12, totalIn:0, totalOut:0 },
-                { id: nextId++, tanggal: getTodayDate(), namaBarang: "Semen Tiga Roda", kategori: "Material Bangunan", inVal: 80, outVal: 20, totalIn:0, totalOut:0 }
-            ];
-            stockData.push(...demoData);
-            recalcAccumulatedTotals();
-            saveToLocal();
         }
         renderTable();
     }
@@ -720,20 +632,16 @@
         });
     }
 
-    // Event listeners
     document.getElementById('tambahBtn').addEventListener('click', addTransaction);
     document.getElementById('clearAllBtn').addEventListener('click', clearAll);
     document.getElementById('printTableBtn').addEventListener('click', printStock);
     document.getElementById('downloadExcelBtn').addEventListener('click', downloadCSV);
     document.getElementById('searchInput').addEventListener('input', () => renderTable());
-    document.getElementById('filterKategoriSearch').addEventListener('change', () => renderTable());
     document.getElementById('resetFilterBtn').addEventListener('click', () => {
         document.getElementById('searchInput').value = '';
-        document.getElementById('filterKategoriSearch').value = '';
         renderTable();
     });
 
-    // init
     loadFromLocal();
 </script>
 </body>
