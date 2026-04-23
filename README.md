@@ -359,8 +359,8 @@
             </div>
             <div class="input-group">
                 <label>📂 Kategori</label>
+                <input type="text" id="Kategori">
                 <select id="kategoriInput">
-                <input type="text" id="Kategori" placeholder="Nama Barang" autocomplete="off">
                     <option value="BOPP">BOPP</option>
                     <option value="Magnet">Magnet</option>
                     <option value="Plat Magnet">Plat Magnet</option>
