@@ -350,7 +350,7 @@
     <div class="form-card">
         <div class="form-grid">
             <div class="input-group">
-                <label>📅 Tanggal</label>
+                <label>🗓️ Tanggal</label>
                 <input type="date" id="tanggalInput" required>
             </div>
             <div class="input-group">
@@ -360,6 +360,7 @@
             <div class="input-group">
                 <label>📂 Kategori</label>
                 <select id="kategoriInput">
+                <input type="text" id="Kategori" placeholder="Nama Barang" autocomplete="off">
                     <option value="BOPP">BOPP</option>
                     <option value="Magnet">Magnet</option>
                     <option value="Plat Magnet">Plat Magnet</option>
