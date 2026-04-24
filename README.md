@@ -339,7 +339,7 @@
                 <input type="number" id="outInput" value="0" min="0" step="1">
             </div>
             <div class="input-group">
-                <button id="tambahBtn">Tambah</button>
+                <button id="tambahBtn">➕ Tambah</button>
             </div>
         </div>
         <div class="info-note">* Total In / Out per barang terakumulasi otomatis berdasarkan urutan tanggal</div>
@@ -376,7 +376,7 @@
                 </tr>
             </thead>
             <tbody id="tableBody">
-                <tr><td colspan="8" style="text-align:center; padding:35px;">📭 Kosong, tambah transaksi</td><tr>
+                <tr><td colspan="8" style="text-align:center; padding:35px;">📭 Kosong, tambah transaksi</td></tr>
             </tbody>
             <tfoot id="tableFootTotal"></tfoot>
         </table>
