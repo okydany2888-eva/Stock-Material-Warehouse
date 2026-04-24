@@ -328,7 +328,7 @@
             </div>
             <div class="input-group">
                 <label>🏷️ Nama Barang</label>
-                <input type="text" id="namaBarangInput" placeholder="Contoh: Semen" autocomplete="off">
+                <input type="text" id="namaBarangInput" placeholder="Contoh: Magnet, Plastik, dll" autocomplete="off">
             </div>
             <div class="input-group">
                 <label>📥 IN (Masuk)</label>
@@ -339,7 +339,7 @@
                 <input type="number" id="outInput" value="0" min="0" step="1">
             </div>
             <div class="input-group">
-                <button id="tambahBtn">➕ Tambah</button>
+                <button id="tambahBtn">Tambah</button>
             </div>
         </div>
         <div class="info-note">* Total In / Out per barang terakumulasi otomatis berdasarkan urutan tanggal</div>
